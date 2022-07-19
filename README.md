@@ -1,0 +1,1 @@
+# cursforge-modpack-generator
