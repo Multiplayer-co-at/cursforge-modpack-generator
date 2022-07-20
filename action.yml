@@ -1,0 +1,21 @@
+name: 'Cursforge Serverpack Generator'
+description: 'Automatically generates a serverpack for Cursforge'
+inputs:
+  clientpack:
+    description: 'The clientpack zipfile to use'
+    required: true
+  curseforge-api-token:
+    description: 'The Curseforge API key'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: node index.js
+      shell: bash
+      env:
+        CURSEFORGE_API_TOKEN: '{{ inputs.curseforge-api-token }}'
+        CLIENT_PACK_PATH: '{{ inputs.clientpack }}'
+
