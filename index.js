@@ -15,7 +15,7 @@ import {
 import { dirname, basename, join } from "node:path";
 import fetch from "node-fetch";
 
-const workspace = ""
+let workspace = ""
 const curseforge = new Curseforge(process.env.CURSEFORGE_API_KEY);
 
 async function copyFolder(source, destination) {
