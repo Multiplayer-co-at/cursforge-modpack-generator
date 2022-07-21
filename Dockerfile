@@ -7,4 +7,5 @@ RUN yarn
 ENV CURSEFORGE_API_TOKEN=$INPUT_CURSEFORGE-API-TOKEN
 ENV CLIENT_PACK_PATH=$INPUT_CLIENTPACK
 
-CMD [ "node", "/app/index.js" ]
+RUN ["chmod", "+x", "/app/index.js"]
+ENTRYPOINT [ "node", "/app/index.js" ]
