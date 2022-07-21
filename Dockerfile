@@ -1,10 +1,10 @@
 FROM node:18
 WORKDIR /curseforge-serverpack-generator
 
-COPY . /
+COPY . /app
 RUN yarn
 
 ENV CURSEFORGE_API_TOKEN=$INPUT_CURSEFORGE-API-TOKEN
 ENV CLIENT_PACK_PATH=$INPUT_CLIENTPACK
 
-CMD [ "node", "index.js" ]
+CMD [ "node", "/app/index.js" ]
