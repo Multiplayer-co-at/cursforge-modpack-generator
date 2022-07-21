@@ -1,4 +1,5 @@
 FROM node:16
+WORKDIR /curseforge-serverpack-generator
 
 COPY package.json ./package.json
 COPY yarn.lock ./yarn.lock
@@ -11,4 +12,4 @@ COPY entrypoint.sh ./entrypoint.sh
 ENV CURSEFORGE_API_TOKEN=$INPUT_CURSEFORGE-API-TOKEN
 ENV CLIENT_PACK_PATH=$INPUT_CLIENTPACK
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
