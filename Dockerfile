@@ -2,6 +2,7 @@ FROM node:18
 
 COPY . /curseforge-serverpack-generator
 RUN yarn install
+COPY node_modules/ /curseforge-serverpack-generator/node_modules
 
 ENV CURSEFORGE_API_TOKEN=$INPUT_CURSEFORGE-API-TOKEN
 ENV CLIENT_PACK_PATH=$INPUT_CLIENTPACK
