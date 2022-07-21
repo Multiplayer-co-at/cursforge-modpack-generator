@@ -15,7 +15,7 @@ import {
 import { dirname, basename, join } from "node:path";
 import fetch from "node-fetch";
 
-const workspace = join(tmpdir(), uuidv4());
+const workspace = ""
 const curseforge = new Curseforge(process.env.CURSEFORGE_API_KEY);
 
 async function copyFolder(source, destination) {
@@ -153,6 +153,7 @@ async function downloadMod(mod, destinationPath) {
 }
 
 (async function () {
+  workspace = dirname(process.env.CLIENT_PACK_PATH);
   if (!existsSync(workspace)) {
     mkdirSync(workspace, { recursive: true });
   }
