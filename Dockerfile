@@ -1,7 +1,7 @@
 FROM node:18
 WORKDIR /curseforge-serverpack-generator
 
-COPY . .
+COPY . /
 RUN yarn
 
 ENV CURSEFORGE_API_TOKEN=$INPUT_CURSEFORGE-API-TOKEN
