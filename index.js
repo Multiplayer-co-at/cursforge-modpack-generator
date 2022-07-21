@@ -154,7 +154,7 @@ async function downloadMod(mod, destinationPath) {
 
 (async function () {
   if (!existsSync(workspace)) {
-    mkdirSync(workspace);
+    mkdirSync(workspace, { recursive: true });
   }
   await generate(
     process.env.CLIENT_PACK_PATH
