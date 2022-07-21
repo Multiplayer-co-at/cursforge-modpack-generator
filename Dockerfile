@@ -1,15 +1,10 @@
-FROM node:16
+FROM node:18
 WORKDIR /curseforge-serverpack-generator
 
-COPY package.json ./package.json
-COPY yarn.lock ./yarn.lock
+COPY . .
 RUN yarn
-
-COPY node_modules ./node_modules
-COPY index.js ./index.js
-COPY entrypoint.sh ./entrypoint.sh
 
 ENV CURSEFORGE_API_TOKEN=$INPUT_CURSEFORGE-API-TOKEN
 ENV CLIENT_PACK_PATH=$INPUT_CLIENTPACK
 
-ENTRYPOINT [ "/curseforge-serverpack-generator/entrypoint.sh" ]
+CMD [ "node", "index.js" ]
