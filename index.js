@@ -15,7 +15,7 @@ import {
 import { dirname, basename, join } from "node:path";
 import fetch from "node-fetch";
 
-const ignoredMods = process.env.INPUT_IGNORED_MODS.split(",") || [];
+const ignoredMods = process.env.INPUT_IGNORED_MODS || [];
 let workspace = process.env.GITHUB_WORKSPACE || tmpdir();
 workspace = join(workspace, uuidv4());
 const curseforge = new Curseforge(process.env.INPUT_TOKEN);
@@ -107,6 +107,7 @@ async function generate(clientPackPath) {
 async function downloadMods(manifestPath, destinationPath) {
   try {
     console.log("Downloading mods...");
+    console.log("Ignored mods: ", ignoredMods.split(","));
     const manifest = JSON.parse(readFileSync(manifestPath));
     const mods = manifest.files;
     await mkdirSync(destinationPath, { recursive: true });
@@ -122,7 +123,7 @@ async function downloadMod(mod, destinationPath) {
   try {
     const { projectID, fileID } = mod;
     if (ignoredMods.includes(projectID)) {
-      console.log(`Skipping mod ${projectID}`);
+      console.log(`Ignoring mod ${projectID}`);
       return;
     }
     const modFileInfo = await curseforge.get_file(projectID, fileID);
