@@ -110,7 +110,7 @@ async function downloadMods(manifestPath, destinationPath) {
     const manifest = JSON.parse(readFileSync(manifestPath));
     const mods = manifest.files;
     await mkdirSync(destinationPath, { recursive: true });
-    const promises = mods.map((mod) => !ignoredMods.indexOf(mod.projectID) && downloadMod(mod, destinationPath));
+    const promises = mods.map((mod) => downloadMod(mod, destinationPath));
     return Promise.all(promises);
   } catch (error) {
     console.log(error);
@@ -121,6 +121,10 @@ async function downloadMods(manifestPath, destinationPath) {
 async function downloadMod(mod, destinationPath) {
   try {
     const { projectID, fileID } = mod;
+    if (ignoredMods.includes(projectID)) {
+      console.log(`Skipping mod ${projectID}`);
+      return;
+    }
     const modFileInfo = await curseforge.get_file(projectID, fileID);
     console.log(`Downloading ${modFileInfo.displayName}`);
     const response = await fetch(modFileInfo.downloadUrl);
