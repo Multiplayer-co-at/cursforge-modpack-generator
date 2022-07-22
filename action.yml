@@ -4,13 +4,10 @@ inputs:
   clientpack:
     description: 'The clientpack zipfile to use'
     required: true
-  curseforge-api-token:
+  token:
     description: 'The Curseforge API key'
     required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    CURSEFORGE_API_TOKEN: ${{ inputs.inputs.curseforge-api-token }}
-    CLIENT_PACK_PATH: ${{ inputs.inputs.clientpack }}
 

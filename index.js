@@ -17,7 +17,7 @@ import fetch from "node-fetch";
 
 let workspace = process.env.GITHUB_WORKSPACE || tmpdir();
 workspace = join(workspace, uuidv4());
-const curseforge = new Curseforge(process.env.CURSEFORGE_API_KEY);
+const curseforge = new Curseforge(process.env.TOKEN);
 
 async function copyFolder(source, destination) {
   try {
@@ -161,12 +161,12 @@ async function downloadMod(mod, destinationPath) {
 (async function () {
   console.log({
     workspace: workspace,
-    clientPackPath: process.env.CLIENT_PACK_PATH,
+    clientPackPath: process.env.INPUT_CLIENTPACK,
   })
   if (!existsSync(workspace)) {
     mkdirSync(workspace, { recursive: true });
   }
   await generate(
-    process.env.CLIENT_PACK_PATH
+    process.env.INPUT_CLIENTPACK
   );
 })();
