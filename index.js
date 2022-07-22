@@ -47,7 +47,7 @@ async function installModLoader(manifestPath, destinationPath) {
     const manifest = JSON.parse(readFileSync(manifestPath));
     const modloader = manifest.minecraft.modLoaders[0].id;
     const modloaderInfo = await curseforge.get_minecraft_modloader(modloader);
-    console.log(`Downloading ${modloaderInfo.name}`);
+    console.log(`Downloading and Installing ${modloaderInfo.name}`);
     const response = await fetch(modloaderInfo.downloadUrl);
     const file = createWriteStream(
       join(destinationPath, modloaderInfo.filename)
