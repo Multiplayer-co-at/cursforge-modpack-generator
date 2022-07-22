@@ -69,9 +69,6 @@ async function installModLoader(manifestPath, destinationPath) {
           cwd: destinationPath,
         }
       );
-      execProcess.stdout.on("data", (data) => {
-        console.log(data.toString());
-      });
       execProcess.stderr.on("data", (data) => {
         console.log(data.toString());
       });
