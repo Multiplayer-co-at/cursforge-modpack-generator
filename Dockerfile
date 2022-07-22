@@ -1,4 +1,4 @@
-FROM node:18
+FROM timbru31/java-node:latest
 
 COPY . .
 RUN yarn install
