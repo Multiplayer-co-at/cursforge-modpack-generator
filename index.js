@@ -107,7 +107,6 @@ async function generate(clientPackPath) {
 async function downloadMods(manifestPath, destinationPath) {
   try {
     console.log("Downloading mods...");
-    console.log("Ignored mods: ", ignoredMods.split(","));
     const manifest = JSON.parse(readFileSync(manifestPath));
     const mods = manifest.files;
     await mkdirSync(destinationPath, { recursive: true });
@@ -121,13 +120,13 @@ async function downloadMods(manifestPath, destinationPath) {
 
 async function downloadMod(mod, destinationPath) {
   try {
-    const { projectID, fileID } = mod;
+    const { projectID, fileID, __meta } = mod;
     if (ignoredMods.includes(projectID)) {
-      console.log(`Ignoring mod ${projectID}`);
+      console.log(`Ignoring mod ${__meta.name}`);
       return;
     }
     const modFileInfo = await curseforge.get_file(projectID, fileID);
-    console.log(`Downloading ${modFileInfo.displayName}`);
+    console.log(`Downloading ${__meta.name}`);
     const response = await fetch(modFileInfo.downloadUrl);
     const file = createWriteStream(join(destinationPath, modFileInfo.fileName));
     return new Promise((resolve, reject) => {
