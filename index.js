@@ -153,7 +153,6 @@ async function downloadMod(mod, destinationPath) {
 }
 
 (async function () {
-  workspace = dirname(process.env.CLIENT_PACK_PATH);
   if (!existsSync(workspace)) {
     mkdirSync(workspace, { recursive: true });
   }
