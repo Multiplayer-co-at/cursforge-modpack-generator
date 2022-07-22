@@ -51,7 +51,7 @@ async function installModLoader(manifestPath, destinationPath) {
     console.log(`Downloading and Installing ${modloaderInfo.name}`);
     const response = await fetch(modloaderInfo.downloadUrl);
     const file = createWriteStream(
-      join(destinationPath, modloaderInfo.filename)
+      join(destinationPath, `forge-${modloaderInfo.minecraftVersion}-${modloaderInfo.forgeVersion}-installer.jar`)
     );
     await new Promise((resolve, reject) => {
       response.body.pipe(file);
@@ -61,24 +61,6 @@ async function installModLoader(manifestPath, destinationPath) {
       file.on("finish", () => {
         file.close();
         resolve();
-      });
-    });
-    await new Promise((resolve, reject) => {
-      const execProcess = exec(
-        `java -jar ${modloaderInfo.filename} --installServer`,
-        {
-          cwd: destinationPath,
-        }
-      );
-      execProcess.stderr.on("data", (data) => {
-        console.log(data.toString());
-      });
-      execProcess.on("close", (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(code);
-        }
       });
     });
   } catch (error) {
