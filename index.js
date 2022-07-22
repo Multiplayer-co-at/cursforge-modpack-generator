@@ -37,6 +37,7 @@ async function copyFolder(source, destination) {
     await Promise.all(promises);
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 }
 
@@ -83,6 +84,7 @@ async function installModLoader(manifestPath, destinationPath) {
     });
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 }
 
@@ -116,6 +118,7 @@ async function generate(clientPackPath) {
     );
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 }
 
@@ -129,6 +132,7 @@ async function downloadMods(manifestPath, destinationPath) {
     return Promise.all(promises);
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 }
 
@@ -149,6 +153,7 @@ async function downloadMod(mod, destinationPath) {
     });
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 }
 
