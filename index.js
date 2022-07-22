@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { v4 as uuidv4 } from "uuid";
 import { exec } from "child_process";
 import {
+  unlinkSync,
   existsSync,
   statSync,
   mkdirSync,
@@ -117,6 +118,7 @@ async function generate(clientPackPath) {
       join(workspace, "server"),
       join(dirname(clientPackPath), `${basename(clientPackPath).split(".")[0]}-server.zip`)
     );
+    await unlinkSync(workspace, { recursive: true });
   } catch (error) {
     console.log(error);
     process.exit(1);
@@ -159,10 +161,6 @@ async function downloadMod(mod, destinationPath) {
 }
 
 (async function () {
-  console.log({
-    workspace: workspace,
-    clientPackPath: process.env.INPUT_CLIENTPACK,
-  })
   if (!existsSync(workspace)) {
     mkdirSync(workspace, { recursive: true });
   }
