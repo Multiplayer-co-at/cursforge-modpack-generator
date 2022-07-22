@@ -16,6 +16,7 @@ import { dirname, basename, join } from "node:path";
 import fetch from "node-fetch";
 
 let workspace = process.env.GITHUB_WORKSPACE || tmpdir();
+workspace = join(workspace, uuidv4());
 const curseforge = new Curseforge(process.env.CURSEFORGE_API_KEY);
 
 async function copyFolder(source, destination) {
