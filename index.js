@@ -15,6 +15,7 @@ import {
 import { dirname, basename, join } from "node:path";
 import fetch from "node-fetch";
 
+const ignoredMods = process.env.INPUT_IGNORED_MODS.split(",") || [];
 let workspace = process.env.GITHUB_WORKSPACE || tmpdir();
 workspace = join(workspace, uuidv4());
 const curseforge = new Curseforge(process.env.INPUT_TOKEN);
@@ -127,7 +128,7 @@ async function downloadMods(manifestPath, destinationPath) {
     const manifest = JSON.parse(readFileSync(manifestPath));
     const mods = manifest.files;
     await mkdirSync(destinationPath, { recursive: true });
-    const promises = mods.map((mod) => downloadMod(mod, destinationPath));
+    const promises = mods.map((mod) => !ignoredMods.indexOf(mod.projectID) && downloadMod(mod, destinationPath));
     return Promise.all(promises);
   } catch (error) {
     console.log(error);

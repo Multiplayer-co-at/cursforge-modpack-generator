@@ -7,6 +7,9 @@ inputs:
   token:
     description: 'The Curseforge API key'
     required: true
+  ignored_mods:
+    description: 'A list of mods to ignore eg. 12345,67890'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
