@@ -112,9 +112,9 @@ async function generate(clientPackPath) {
     );
     await archiveFolder(
       join(workspace, "server"),
-      join(dirname(clientPackPath), `${basename(clientPackPath).split(".")[0]}-server.zip`)
+      join(dirname(clientPackPath), "serverpack.zip")
     );
-    console.log("Saving archive to: " + join(dirname(clientPackPath), `${basename(clientPackPath).split(".")[0]}-server.zip`))
+    console.log("Saving archive to: " + join(dirname(clientPackPath), "serverpack.zip"));
   } catch (error) {
     console.log(error);
     process.exit(1);
