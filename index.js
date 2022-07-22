@@ -114,7 +114,7 @@ async function generate(clientPackPath) {
       join(workspace, "server"),
       join(dirname(clientPackPath), `${basename(clientPackPath).split(".")[0]}-server.zip`)
     );
-    console.log("Saving archive to: " + join(dirname(clientPackPath), `${basename(clientPackPath).split(".")[0]}-server.zip`)
+    console.log("Saving archive to: " + join(dirname(clientPackPath), `${basename(clientPackPath).split(".")[0]}-server.zip`))
   } catch (error) {
     console.log(error);
     process.exit(1);
