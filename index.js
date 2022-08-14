@@ -142,7 +142,7 @@ async function downloadMod(mod, destinationPath, retry = 0) {
       console.log(`Retrying download of ${__meta.name}`);
       return downloadMod(mod, destinationPath, retry + 1);
     } else {
-      console.log(error);
+      console.log(`Failed to download ${__meta.name}\n ${error}`);
       process.exit(1);
     }
   }
