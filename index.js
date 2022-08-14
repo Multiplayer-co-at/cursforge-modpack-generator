@@ -118,14 +118,13 @@ async function downloadMods(manifestPath, destinationPath) {
   }
 }
 
-async function downloadMod(mod, destinationPath) {
+async function downloadMod(mod, destinationPath, retry = 0) {
   try {
     const { projectID, fileID, __meta } = mod;
     if (ignoredMods.includes(projectID)) {
       console.log(`Ignoring mod ${__meta.name}`);
       return;
     }
-    const modFileInfo = await curseforge.get_file(projectID, fileID);
     console.log(`Downloading ${__meta.name}`);
     const response = await fetch(modFileInfo.downloadUrl);
     const file = createWriteStream(join(destinationPath, modFileInfo.fileName));
@@ -138,8 +137,13 @@ async function downloadMod(mod, destinationPath) {
       });
     });
   } catch (error) {
-    console.log(error);
-    process.exit(1);
+    if (retry < 3) {
+      console.log(`Retrying download of ${modFileInfo.fileName}`);
+      return downloadMod(mod, destinationPath, retry + 1);
+    } else {
+      console.log(error);
+      process.exit(1);
+    }
   }
 }
 
