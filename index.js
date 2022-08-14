@@ -139,7 +139,7 @@ async function downloadMod(mod, destinationPath, retry = 0) {
     });
   } catch (error) {
     if (retry < 3) {
-      console.log(`Retrying download of ${__meta.name}`);
+      console.log(`Retrying download of ${__meta.name} (${retry + 1}/${3})`);
       return downloadMod(mod, destinationPath, retry + 1);
     } else {
       console.log(`Failed to download ${__meta.name}\n ${error}`);
