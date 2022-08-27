@@ -126,14 +126,15 @@ async function downloadMod(mod, destinationPath, retry = 0) {
       return;
     }
     const modFileInfo = await curseforge.get_file(projectID, fileID);
-    console.log(`Downloading ${__meta.name}`);
     const response = await fetch(modFileInfo.downloadUrl);
     const file = createWriteStream(join(destinationPath, modFileInfo.fileName));
-    return new Promise((resolve, reject) => {
+    return new Promise(function downloadPromise(resolve, reject) {
+      console.log(`Downloading ${__meta.name}`);
       response.body.pipe(file);
       response.body.on("error", (err) => reject(err));
       file.on("finish", () => {
         file.close();
+        console.log(`Downloaded ${__meta.name}`);
         resolve();
       });
     });
